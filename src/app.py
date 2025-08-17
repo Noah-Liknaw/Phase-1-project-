@@ -41,12 +41,12 @@ st.title("💰 Finance Document Search")
 st.write("An assistant to help you understand concepts from finance transcripts and notes.")
 st.write("⚠️ Not financial advice. This is a project for my bootcamp. 😅")
 
-# Layout: Two columns (images + input/output)
-col1, col2 = st.columns([1, 2])  # left for images, right for Q&A
+# Layout: Two columns (image + input/output)
+col1, col2 = st.columns([1, 2])  # left for image, right for Q&A
 
 with col1:
-    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", caption="Finance Icon 1", use_container_width=True)
-    st.image("https://cdn-icons-png.flaticon.com/512/2331/2331941.png", caption="Finance Icon 2", use_container_width=True)
+    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", 
+             caption="Finance Assistant", use_container_width=True)
 
 with col2:
     query = st.text_input("Enter your question:")
