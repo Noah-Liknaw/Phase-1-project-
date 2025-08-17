@@ -46,14 +46,14 @@ streamlit run src/app.py
 Here are some screenshots of sample questions and answers:
 
 Example 1:
-![Alt text](images/test1.png)
+![Alt text](images/test1.PNG)
 
 
 Example 2:
-![Alt text](images/test2.png)
+![Alt text](images/test2.PNG)
 
 Example 3:
-![Alt text](images/test3.png)
+![Alt text](images/test3.PNG)
 
 ## Live link
 
