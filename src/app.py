@@ -36,51 +36,57 @@ def load_llm():
 
 # Streamlit UI
 st.set_page_config(page_title="Finance Document Search", page_icon="💰")
+
 st.title("💰 Finance Document Search")
-st.write("Ask questions about your financial literacy documents!")
+st.write("An assistant to help you understand concepts from finance transcripts and notes.")
 st.write("⚠️ Not financial advice. This is a project for my bootcamp. 😅")
 
-query = st.text_input("Enter your question:")
+# Layout: Two columns (images + input/output)
+col1, col2 = st.columns([1, 2])  # left for images, right for Q&A
 
-if query:
-    vectorstore = load_vectorstore()
+with col1:
+    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", caption="Finance Icon 1", use_container_width=True)
+    st.image("https://cdn-icons-png.flaticon.com/512/2331/2331941.png", caption="Finance Icon 2", use_container_width=True)
 
-    # Get top 3 relevant documents
-    docs = vectorstore.similarity_search(query, k=3)
-    if not docs:
-        st.subheader("Answer:")
-        st.write("Did not find anything relevant.")
-    else:
-        # Take only first 4 sentences from each doc for context
-        context_sentences = []
-        for d in docs:
-            sentences = d.page_content.split(". ")
-            context_sentences.extend(sentences[:4])
-        short_context = ". ".join(context_sentences)
+with col2:
+    query = st.text_input("Enter your question:")
 
-        # Prompt template
-        prompt_template = PromptTemplate(
-            template=(
-                "You are a helpful financial assistant. Answer the question concisely in 2-3 sentences "
-                "using the context below. Ignore any irrelevant parts.\n\n"
-                "Context: {context}\n\nQuestion: {question}\n\nAnswer:"
-            ),
-            input_variables=["context", "question"],
-        )
+    if query:
+        vectorstore = load_vectorstore()
 
-        # Format prompt
-        prompt = prompt_template.format(context=short_context, question=query)
+        # Get top 3 relevant documents
+        docs = vectorstore.similarity_search(query, k=3)
+        if not docs:
+            st.subheader("Answer:")
+            st.write("Did not find anything relevant.")
+        else:
+            # Take only first 4 sentences from each doc for context
+            context_sentences = []
+            for d in docs:
+                sentences = d.page_content.split(". ")
+                context_sentences.extend(sentences[:4])
+            short_context = ". ".join(context_sentences)
 
-        # Call the LLM
-        llm = load_llm()
-        chain = LLMChain(llm=llm, prompt=prompt_template)
-        raw_answer = chain.run(question=query, context=short_context)
+            # Prompt template
+            prompt_template = PromptTemplate(
+                template=(
+                    "You are a helpful financial assistant. Answer the question concisely in 2-3 sentences "
+                    "using the context below. Ignore any irrelevant parts.\n\n"
+                    "Context: {context}\n\nQuestion: {question}\n\nAnswer:"
+                ),
+                input_variables=["context", "question"],
+            )
 
-        # Return first 3–5 sentences
-        sentences = raw_answer.split(". ")
-        answer = ". ".join(sentences[:5]).strip()
-        if not answer:
-            answer = "Did not find anything relevant."
+            # Call the LLM
+            llm = load_llm()
+            chain = LLMChain(llm=llm, prompt=prompt_template)
+            raw_answer = chain.run(question=query, context=short_context)
 
-        st.subheader("Answer:")
-        st.write(answer)
+            # Return first 3–5 sentences
+            sentences = raw_answer.split(". ")
+            answer = ". ".join(sentences[:5]).strip()
+            if not answer:
+                answer = "Did not find anything relevant."
+
+            st.subheader("Answer:")
+            st.write(answer)
