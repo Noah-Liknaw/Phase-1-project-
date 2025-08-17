@@ -1,0 +1,24 @@
+# Core RAG Framework
+langchain
+langchain-community
+
+# Embeddings
+openai
+sentence-transformers
+
+# Vector Database
+faiss-cpu
+
+# Document Loaders
+pypdf
+youtube-transcript-api
+
+# User Interface
+streamlit
+
+# Utilities
+tiktoken
+python-dotenv
+
+
+langchain-huggingface
