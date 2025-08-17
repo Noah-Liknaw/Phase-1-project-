@@ -37,7 +37,7 @@ def load_llm():
 # Streamlit UI
 st.set_page_config(page_title="Finance Document Search", page_icon="💰")
 
-st.title("💰 Finance Document Search")
+st.title("💰 Your Financial Assistant")
 st.write("An assistant to help you understand concepts from finance transcripts and notes.")
 st.write("⚠️ Not financial advice. This is a project for my bootcamp. 😅")
 
