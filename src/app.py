@@ -39,7 +39,7 @@ st.set_page_config(page_title="Finance Document Search", page_icon="💰")
 
 st.title("💰 Your Financial Assistant")
 st.write("An assistant to help you understand concepts from finance transcripts and notes.")
-st.write("⚠️ Not financial advice. This is a project for my bootcamp. 😅")
+st.write("⚠️ Not financial advice.😅")
 
 # Layout: Two columns (image + input/output)
 col1, col2 = st.columns([1, 2])  # left for image, right for Q&A
